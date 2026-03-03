@@ -38,6 +38,12 @@ module Terminus
     patch "/api/models/:id", to: "api.models.patch", as: :api_model_patch
     delete "/api/models/:id", to: "api.models.delete", as: :api_model_delete
 
+    get "/api/playlists", to: "api.playlists.index", as: :api_playlists
+    get "/api/playlists/:id", to: "api.playlists.show", as: :api_playlist
+    post "/api/playlists", to: "api.playlists.create", as: :api_playlist_create
+    patch "/api/playlists/:id", to: "api.playlists.patch", as: :api_playlist_patch
+    delete "/api/playlists/:id", to: "api.playlists.delete", as: :api_playlist_delete
+
     get "/api/screens", to: "api.screens.index", as: :api_screens
     post "/api/screens", to: "api.screens.create", as: :api_screen_create
     patch "/api/screens/:id", to: "api.screens.patch", as: :api_screen_patch
