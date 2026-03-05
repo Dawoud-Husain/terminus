@@ -25,7 +25,7 @@ module Terminus
 
         attributes = record.to_h.slice(*keys)
         attributes.transform_values!(&transformer)
-        attributes[:items] = items_for record
+        attributes[:items] = items
         attributes
       end
 
@@ -33,7 +33,7 @@ module Terminus
 
       attr_reader :record, :keys, :transformer
 
-      def items_for record
+      def items
         record.playlist_items.map { item_serializer.new(it).to_h }
       rescue NoMethodError, ROM::Struct::MissingAttribute
         Dry::Core::EMPTY_ARRAY
