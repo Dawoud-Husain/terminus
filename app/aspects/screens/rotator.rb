@@ -18,7 +18,7 @@ module Terminus
           if device.asleep?
             sleeper.call device
           else
-            find_playlist(device.playlist_id).fmap { |playlist| auto_update_current_item playlist }
+            find_playlist(device.playlist_id).fmap { |playlist| advance_current_item playlist }
                                              .bind { |item| obtain_screen item }
           end
         end
@@ -33,11 +33,12 @@ module Terminus
           Failure "Unable to obtain next screen. Can't find playlist with ID: #{id.inspect}."
         end
 
-        def auto_update_current_item playlist
+        # :reek:FeatureEnvy
+        def advance_current_item playlist
+          return playlist.current_item if playlist.manual?
+
           item_repository.next_item(after: playlist.current_item_position, playlist_id: playlist.id)
-                         .tap do |item|
-                           playlist_repository.auto_update_current_item playlist, item.id if item
-                         end
+                         .tap { |item| playlist_repository.update_current_item playlist, item }
         end
 
         def obtain_screen item

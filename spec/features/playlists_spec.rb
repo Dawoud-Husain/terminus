@@ -53,7 +53,7 @@ RSpec.describe "Playlists", :db do
 
     expect(page).to have_content("No screens found.")
 
-    (1..3).each do |position|
+    items = (1..3).map do |position|
       Factory[
         :playlist_item,
         playlist_id: playlist.id,
@@ -61,6 +61,8 @@ RSpec.describe "Playlists", :db do
         position:
       ]
     end
+
+    Terminus::Repositories::Playlist.new.update playlist.id, current_item_id: items.first.id
 
     visit routes.path(:playlists)
     click_link "Play"
