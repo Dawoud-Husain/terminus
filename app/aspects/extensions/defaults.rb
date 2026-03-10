@@ -14,7 +14,7 @@ module Terminus
         template: <<~BODY
           <div class="{{extension.css_classes}}">
             <div class="view view--full">
-              <div class="layout">
+              <div class="layout layout--col">
               </div>
             </div>
           </div>
