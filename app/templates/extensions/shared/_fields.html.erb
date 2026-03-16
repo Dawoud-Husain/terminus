@@ -384,19 +384,23 @@
 
   <% if extension %>
     <%= scope(:form_field, key: :response, errors:, alpine: {show: "input === 'source'"}).render do %>
-      <%= tag.pre **HTMX[
-                    get: routes.path(:extension_poll, extension_id: extension.id),
-                    trigger: :load,
-                    swap: "outerHTML"
-                  ] do %>Loading...<% end %>
+      <%= tag.pre(
+            **HTMX[
+              get: routes.path(:extension_poll, extension_id: extension.id),
+              trigger: :load,
+              swap: "outerHTML"
+            ]
+          ) do %>Loading...<% end %>
     <% end %>
 
     <%= scope(:form_field, key: :sensors, errors:, alpine: {show: "input === 'sensors'"}).render do %>
-      <%= tag.pre **HTMX[
-                    get: routes.path(:extension_sensors, extension_id: extension.id),
-                    trigger: :load,
-                    swap: "outerHTML"
-                  ] do %>Loading...<% end %>
+      <%= tag.pre(
+            **HTMX[
+              get: routes.path(:extension_sensors, extension_id: extension.id),
+              trigger: :load,
+              swap: "outerHTML"
+            ]
+          ) do %>Loading...<% end %>
     <% end %>
   <% end %>
 
