@@ -6,9 +6,13 @@ RSpec.describe "/api/setup", :db do
   let(:device) { Factory[:device, model_id: model.id] }
   let(:model) { Factory[:model, name: "og_png"] }
 
+  let :headers do
+    {"HTTP_FW_VERSION" => "1.2.3", "HTTP_ID" => "A1:B2:C3:D4:E5:F6", "HTTP_MODEL" => "og_png"}
+  end
+
   it "answers new device when device doesn't exist" do
     model
-    get routes.path(:api_setup), {}, "HTTP_ID" => "A1:B2:C3:D4:E5:F6", "HTTP_FW_VERSION" => "1.2.3"
+    get routes.path(:api_setup), {}, **headers
 
     expect(json_payload).to match(
       api_key: match_device_api_key,
@@ -19,7 +23,8 @@ RSpec.describe "/api/setup", :db do
   end
 
   it "answers existing device for MAC address" do
-    get routes.path(:api_setup), {}, "HTTP_ID" => device.mac_address
+    headers["HTTP_ID"] = device.mac_address
+    get routes.path(:api_setup), {}, **headers
 
     expect(json_payload).to eq(
       api_key: device.api_key,
@@ -30,7 +35,7 @@ RSpec.describe "/api/setup", :db do
   end
 
   it "answers problem details when model for device doesn't exist" do
-    get routes.path(:api_setup), {}, "HTTP_ID" => "A1:B2:C3:D4:E5:F6", "HTTP_FW_VERSION" => "1.2.3"
+    get routes.path(:api_setup), {}, **headers
 
     problem = Petail[
       type: "/problem_details#device_setup",
@@ -43,7 +48,8 @@ RSpec.describe "/api/setup", :db do
   end
 
   it "answers problem details when firmware version header is invalid" do
-    get routes.path(:api_setup), {}, "HTTP_ID" => device.mac_address, "HTTP_FW_VERSION" => "abc"
+    headers["HTTP_FW_VERSION"] = "bogus"
+    get routes.path(:api_setup), {}, **headers
 
     problem = Petail[
       type: "/problem_details#device_setup",
@@ -61,7 +67,8 @@ RSpec.describe "/api/setup", :db do
   end
 
   it "answers problem details when device ID header is invalid" do
-    get routes.path(:api_setup), {}, "HTTP_ID" => "bogus"
+    headers["HTTP_ID"] = "bogus"
+    get routes.path(:api_setup), {}, **headers
 
     problem = Petail[
       type: "/problem_details#device_setup",
@@ -88,7 +95,9 @@ RSpec.describe "/api/setup", :db do
       instance: "/api/setup",
       extensions: {
         errors: {
-          HTTP_ID: ["is missing"]
+          HTTP_FW_VERSION: ["is missing"],
+          HTTP_ID: ["is missing"],
+          HTTP_MODEL: ["is missing"]
         }
       }
     ]
