@@ -112,6 +112,8 @@ module Terminus
     put "/models/:id", to: "models.update", as: :model_update
     delete "/models/:id", to: "models.delete", as: :model_delete
 
+    get "/models/:model_id/clone/new", to: "models.clone.new", as: :model_clone_new
+
     get "/playlists", to: "playlists.index", as: :playlists
     get "/playlists/:id", to: "playlists.show", as: :playlist
     get "/playlists/new", to: "playlists.new", as: :playlist_new

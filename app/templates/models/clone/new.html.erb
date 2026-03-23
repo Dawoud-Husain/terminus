@@ -1,0 +1,30 @@
+<%= render "shared/title", text: "Clone Model" %>
+
+<section class="bit-page page-models">
+  <header class="bit-header">
+    <ul class="bit-breadcrumbs">
+      <li class="bit-breadcrumb">
+        <%= link_to "Models", routes.path(:models), class: :link %>
+      </li>
+
+      <li class="bit-breadcrumb">Clone</li>
+    </ul>
+  </header>
+
+  <div class="bit-body">
+    <div class="models">
+      <%= form_for :model,
+                   routes.path(:model_clone_create, model_id: model.id),
+                   class: "bit-card bit-form model" do |form| %>
+        <h1 class="label">Clone Model</h1>
+
+        <%= render "models/shared/fields", form:, model:, fields: fields.value, errors: %>
+
+        <div class="form-actions">
+          <%= form.submit "Save", class: "bit-button-accept" %>
+          <%= link_to "Cancel", routes.path(:models), class: "bit-button-decline" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
