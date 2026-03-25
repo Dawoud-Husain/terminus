@@ -21,7 +21,7 @@ RSpec.describe "Users", :db do
 
     user = Hanami.app["repositories.user"].find_by email: "test@test.io"
     within("li[id='#{user.id}']") { click_link "Edit" }
-    fill_in "Name", with: nil
+    fill_in "Name", with: ""
     click_button "Save"
 
     expect(page).to have_content("must be filled")

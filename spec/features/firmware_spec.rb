@@ -24,7 +24,7 @@ RSpec.describe "Firmware", :db do
     expect(page).to have_content("0.0.0")
 
     click_link "Edit"
-    fill_in "firmware[version]", with: nil
+    fill_in "firmware[version]", with: ""
     click_button "Save"
 
     expect(page).to have_content("must be filled")

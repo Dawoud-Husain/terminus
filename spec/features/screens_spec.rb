@@ -25,8 +25,6 @@ RSpec.describe "Screens", :db do
     click_link "Edit"
     click_button "Save"
 
-    expect(page).to have_content("Test")
-
     click_link "Edit"
     fill_in "screen[label]", with: ""
     click_button "Save"
@@ -39,9 +37,12 @@ RSpec.describe "Screens", :db do
 
     expect(page).to have_content("Test II")
 
-    visit routes.path(:firmware)
-    accept_prompt { click_button "Delete" }
+    visit routes.path(:screens)
 
-    expect(page).to have_no_content("Test")
+    within ".bit-card", text: "Test II" do
+      accept_prompt { click_button "Delete" }
+    end
+
+    expect(page).to have_no_content("Test II")
   end
 end

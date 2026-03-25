@@ -18,7 +18,7 @@ RSpec.describe "Playlists", :db do
     expect(page).to have_content("Test")
 
     click_link "Edit"
-    fill_in "playlist[label]", with: nil
+    fill_in "playlist[label]", with: ""
     click_button "Save"
 
     expect(page).to have_content("must be filled")
@@ -30,7 +30,7 @@ RSpec.describe "Playlists", :db do
 
     visit routes.path(:playlists)
     click_link "Clone"
-    fill_in "playlist[name]", with: nil
+    fill_in "playlist[name]", with: ""
     click_button "Save"
 
     expect(page).to have_content("must be filled")

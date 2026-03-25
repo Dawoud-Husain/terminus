@@ -24,7 +24,7 @@ RSpec.describe "Extensions", :db do
     extension = Factory[:extension]
 
     visit routes.path(:extension_edit, id: extension.id)
-    fill_in "extension[label]", with: nil
+    fill_in "extension[label]", with: ""
     click_button "Save"
 
     expect(page).to have_content("must be filled")
@@ -41,7 +41,7 @@ RSpec.describe "Extensions", :db do
 
     click_link "Cancel"
     click_link "Clone"
-    fill_in "extension[label]", with: nil
+    fill_in "extension[label]", with: ""
     click_button "Save"
 
     expect(page).to have_content("must be filled")
