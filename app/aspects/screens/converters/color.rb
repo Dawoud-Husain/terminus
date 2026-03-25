@@ -23,8 +23,8 @@ module Terminus
 
             mini_magick.convert do |tool|
               tool << mold.input_path.to_s
-              tool.resize "#{mold.dimensions}!"
               tool.rotate mold.rotation if mold.rotatable?
+              tool.resize "#{mold.dimensions}!"
               tool.crop mold.crop if mold.cropable?
               tool.normalize
               tool.modulate "110,150"

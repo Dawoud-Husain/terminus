@@ -27,7 +27,7 @@ module Terminus
 
         def crop = "#{dimensions}+#{offset_x}+#{offset_y}"
 
-        def cropable? = offset_x.positive? || offset_y.positive?
+        def cropable? = !offset_x.zero? || !offset_y.zero?
 
         def dither? = mode == :dither
 
@@ -41,7 +41,7 @@ module Terminus
 
         def image_attributes = {model_id:, name:, label:}
 
-        def rotatable? = rotation.positive?
+        def rotatable? = !rotation.zero?
 
         def viewport = {width:, height:}
       end

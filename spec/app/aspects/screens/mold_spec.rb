@@ -44,12 +44,20 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
   end
 
   describe "#cropable?" do
-    it "answers true if x offset is not zero" do
+    it "answers true if x offset is positive" do
       expect(mold.with(offset_x: 1).cropable?).to be(true)
     end
 
-    it "answers true if y offset is not zero" do
+    it "answers true if x offset is negative" do
+      expect(mold.with(offset_x: -1).cropable?).to be(true)
+    end
+
+    it "answers true if y offset is positive" do
       expect(mold.with(offset_y: 1).cropable?).to be(true)
+    end
+
+    it "answers true if y offset is negative" do
+      expect(mold.with(offset_y: -1).cropable?).to be(true)
     end
 
     it "answers false if x and y offsets are zero" do
@@ -107,7 +115,11 @@ RSpec.describe Terminus::Aspects::Screens::Mold do
 
   describe "#rotatable?" do
     it "answers true when rotation is positive" do
-      expect(mold.with(rotation: 1).rotatable?).to be(true)
+      expect(mold.with(rotation: 90).rotatable?).to be(true)
+    end
+
+    it "answers true when rotation is negative" do
+      expect(mold.with(rotation: -90).rotatable?).to be(true)
     end
 
     it "answers false when rotation is zero" do

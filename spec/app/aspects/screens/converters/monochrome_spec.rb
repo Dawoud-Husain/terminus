@@ -149,7 +149,7 @@ RSpec.describe Terminus::Aspects::Screens::Converters::Monochrome do
       image = MiniMagick::Image.open mold.output_path
 
       expect(image).to have_attributes(
-        dimensions: [480, 800],
+        dimensions: [800, 480],
         exif: {},
         type: "PNG",
         data: hash_including(
