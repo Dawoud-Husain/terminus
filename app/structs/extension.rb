@@ -25,7 +25,7 @@ module Terminus
 
       def screen_name = "extension-#{name}"
 
-      def screen_attributes = {label: screen_label, name: screen_name}
+      def screen_attributes = {label: screen_label, name: screen_name, mode:}
 
       def to_cron(croner: Aspects::Croner) = croner.call interval, unit, time: start_at
 
