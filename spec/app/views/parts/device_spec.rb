@@ -121,6 +121,17 @@ RSpec.describe Terminus::Views::Parts::Device, :db do
     end
   end
 
+  describe "#wake_description" do
+    it "answers unknown when blank" do
+      expect(part.wake_description).to eq("Unknown.")
+    end
+
+    it "answers description when present" do
+      allow(device).to receive(:wake_reason).and_return("Woken from test.")
+      expect(part.wake_description).to eq("Woken from test.")
+    end
+  end
+
   describe "#wifi_percentage" do
     it "answers zero when zero" do
       allow(device).to receive(:wifi).and_return(0)

@@ -16,6 +16,8 @@ module Terminus
           battery_charge.positive? ? battery_charge : battery_voltage_to_percent
         end
 
+        def wake_description = String(wake_reason).empty? ? "Unknown." : wake_reason
+
         def wifi_percentage
           case wifi
             when 0 then 0
