@@ -24,7 +24,8 @@ module Terminus
       end
 
       def search key, value
-        device.where(Sequel.ilike(key, "%#{value}%"))
+        device.combine(:model)
+              .where(Sequel.ilike(key, "%#{value}%"))
               .order { created_at.asc }
               .to_a
       end
