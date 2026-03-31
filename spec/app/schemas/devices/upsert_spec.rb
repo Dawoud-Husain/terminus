@@ -14,12 +14,19 @@ RSpec.describe Terminus::Schemas::Devices::Upsert do
         friendly_id: "ABC123",
         mac_address: "AA:BB:CC:11:22:33",
         api_key: "secret",
-        battery_charge: 85.0,
-        battery_voltage: 3.5,
         refresh_rate: 100,
         image_timeout: 0,
         proxy: "on",
-        firmware_update: "on"
+        firmware_update: "on",
+        firmware_version: "1.2.3",
+        battery_charge: 85.0,
+        battery_voltage: 3.5,
+        wifi: -75,
+        width: 800,
+        height: 480,
+        wake_reason: "Awoken from test.",
+        sleep_start_at: "18:00:00",
+        sleep_end_at: "06:00:00"
       }
     end
 

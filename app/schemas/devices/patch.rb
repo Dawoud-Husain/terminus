@@ -8,14 +8,21 @@ module Terminus
       Patch = Dry::Schema.Params do
         optional(:model_id).filled :integer
         optional(:playlist_id).filled :integer
-        optional(:friendly_id).filled :string
         optional(:label).filled :string
+        optional(:friendly_id).filled :string
         optional(:mac_address).filled Types::MACAddress
         optional(:api_key).filled :string
         optional(:refresh_rate).filled :integer, gt?: 0
         optional(:image_timeout).filled :integer, gteq?: 0
         optional(:proxy).filled :bool
         optional(:firmware_update).filled :bool
+        optional(:firmware_version).filled Types::Version
+        optional(:battery_charge).filled :float, gteq?: 0
+        optional(:battery_voltage).filled :float, gteq?: 0
+        optional(:wifi).filled :integer
+        optional(:width).filled :integer
+        optional(:height).filled :integer
+        optional(:wake_reason).filled :string
         optional(:sleep_start_at).maybe :string
         optional(:sleep_stop_at).maybe :string
       end

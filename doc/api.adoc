@@ -44,8 +44,11 @@ The {trmnl_firmware_link} will include the following headers in each HTTP reques
 * `HOST`: The host (usually the IP address).
 * `ID`: The MAC address of the device.
 * `MODEL`: The generic device model (doesn't match {trmnl_api_gem_link} model names but can be used as a fuzzy match).
+* `PERCENT_CHARGED`: The remaining charge of the device battery. When present, prefer this value over `BATTERY_VOLTAGE` because this will give you the exact percent of battery charge left.
 * `REFRESH_RATE`: The current refresh rate as saved on the device. Example: 100.
 * `RSSI`: The WiFi signal strength (usually -100 to 100).
+* `SENSORS`: The sensor reasons for any sensors connected to the device.
+* `UPDATE_SOURCE`: The reason for why the device was woken from sleep.
 * `USER_AGENT`: The device name (usually the ESP32 board name).
 * `WIDTH`: The device width. Example: 800.
 
@@ -259,6 +262,7 @@ curl "https://localhost:2443/api/devices/1" \
       "battery_voltage": 4.0,
       "refresh_rate": 500,
       "image_timeout": 0,
+      "wake_reason": null,
       "width": 800,
       "height": 480,
       "proxy": false,
@@ -287,6 +291,7 @@ curl "https://localhost:2443/api/devices/1" \
     "battery_voltage": 4.0,
     "refresh_rate": 500,
     "image_timeout": 0,
+    "wake_reason": null,
     "width": 800,
     "height": 480,
     "proxy": false,
@@ -335,12 +340,17 @@ curl -X "POST" "https://localhost:2443/api/devices" \
     "friendly_id": "DEMO11",
     "mac_address": "A1:B2:C3:D4:E5:F6",
     "api_key": "OScdcN0kFbKjFcid9Kz6Cx",
-    "battery_charge": 85.0,
-    "battery_voltage": -70,
-    "firmware_update": true,
     "refresh_rate": 500,
     "image_timeout": 0,
     "proxy": false,
+    "firmware_update": true,
+    "firmware_version": "1.2.3",
+    "battery_charge": 85.0,
+    "battery_voltage": -70,
+    "wifi": -70,
+    "width": 800,
+    "height": 480,
+    "wake_reason": "Awoken from API.",
     "sleep_start_at": "18:00:00",
     "sleep_stop_at": "06:00:00"
   }
@@ -368,6 +378,7 @@ curl -X "POST" "https://localhost:2443/api/devices" \
     "battery_voltage": 0.0,
     "refresh_rate": 900,
     "image_timeout": 0,
+    "wake_reason": null,
     "width": 0,
     "height": 0,
     "proxy": false,
@@ -421,6 +432,7 @@ You can change a single attribute or multiple attributes at once. All attributes
     "battery_voltage": 4.0,
     "refresh_rate": 250,
     "image_timeout": 0,
+    "wake_reason": null,
     "width": 800,
     "height": 480,
     "proxy": false,
@@ -466,6 +478,7 @@ curl -X "DELETE" "https://localhost:2443/api/devices/1" \
     "battery_voltage": 4.0,
     "refresh_rate": 250,
     "image_timeout": 0,
+    "wake_reason": null,
     "width": 800,
     "height": 480,
     "proxy": false,

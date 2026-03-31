@@ -19,6 +19,7 @@ module Terminus
         battery_voltage
         refresh_rate
         image_timeout
+        wake_reason
         width
         height
         proxy
