@@ -93,6 +93,12 @@
         <dd class="value"><%= boolean device.proxy %></dd>
 
         <dt class="key">
+          Wake Reason
+          <%= render "shared/popovers/triggers/default", name: :wake_reason %>
+        </dt>
+        <dd class="value"><%= device.wake_description %></dd>
+
+        <dt class="key">
           Sleep Start
           <%= render "shared/popovers/triggers/default", name: :sleep_start %>
         </dt>
