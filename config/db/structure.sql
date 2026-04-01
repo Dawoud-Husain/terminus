@@ -523,8 +523,8 @@ CREATE TABLE public.model (
     name text NOT NULL,
     label text NOT NULL,
     description text,
-    width integer NOT NULL,
-    height integer NOT NULL,
+    width integer DEFAULT 0 NOT NULL,
+    height integer DEFAULT 0 NOT NULL,
     mime_type text DEFAULT 'image/png'::text NOT NULL,
     colors integer DEFAULT 2 NOT NULL,
     bit_depth integer DEFAULT 1 NOT NULL,
@@ -1542,4 +1542,5 @@ INSERT INTO schema_migrations (filename) VALUES
 ('20260318132419_add_palette.rb'),
 ('20260330115025_add_extension_mode_column.rb'),
 ('20260330145138_alter_device_battery_columns.rb'),
-('20260331102522_add_device_wake_reason_column.rb');
+('20260331102522_add_device_wake_reason_column.rb'),
+('20260401162632_alter_model_width_and_height_defaults.rb');
