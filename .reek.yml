@@ -9,6 +9,7 @@ detectors:
   DataClump:
     exclude:
       - Terminus::Aspects::Croner
+      - Terminus::Aspects::ProblemDetail
       - Terminus::Aspects::Screens::Shoter
       - Terminus::Repositories::Screen
   DuplicateMethodCall:
@@ -20,6 +21,7 @@ detectors:
       - Terminus::Aspects::Playlists::SlideWindow#screens
   FeatureEnvy:
     exclude:
+      - Terminus::Aspects::ProblemDetail#enum
       - Terminus::Action#authorize
       - Terminus::Actions::API::Screens::Create#handle
       - Terminus::Actions::API::Screens::Create#save
@@ -87,3 +89,5 @@ detectors:
       - SQLLoggerPatch#log_query
       - Terminus::Aspects::Croner
       - Terminus::Aspects::Liquid::Filters#json
+      - Terminus::Aspects::ProblemDetail#duplicate
+      - Terminus::Aspects::ProblemDetail#foreign_key
