@@ -35,18 +35,18 @@ module Terminus
           end
 
           def not_found error, response
-            body = problem[
+            payload = problem[
               type: "/problem_details#device_payload",
               status: __method__,
               detail: error,
               instance: "/api/devices"
             ]
 
-            response.with body: body.to_json, format: :problem_details, status: 404
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
 
           def unprocessable_content parameters, response
-            body = problem[
+            payload = problem[
               type: "/problem_details#device_payload",
               status: :unprocessable_content,
               detail: "Validation failed.",
@@ -54,7 +54,7 @@ module Terminus
               extensions: {errors: parameters.errors.to_h}
             ]
 
-            response.with body: body.to_json, format: :problem_details, status: 422
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
         end
       end

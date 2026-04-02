@@ -91,7 +91,7 @@ module Terminus
               instance: "/api/display"
             ]
 
-            response.with body: payload.to_json, format: :problem_details, status: 404
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
         end
       end

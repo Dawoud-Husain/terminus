@@ -60,7 +60,7 @@ module Terminus
           end
 
           def unprocessable_content_for_parameters errors, response
-            body = problem[
+            payload = problem[
               type: "/problem_details#screen_payload",
               status: :unprocessable_content,
               detail: "Validation failed.",
@@ -68,18 +68,18 @@ module Terminus
               extensions: {errors:}
             ]
 
-            response.with body: body.to_json, format: :problem_details, status: 422
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
 
           def unprocessable_content_for_creation result, response
-            body = problem[
+            payload = problem[
               type: "/problem_details#screen_payload",
               status: :unprocessable_content,
               detail: result.failure,
               instance: "/api/screens"
             ]
 
-            response.with body: body.to_json, format: :problem_details, status: 422
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
         end
       end

@@ -27,9 +27,25 @@ detectors:
       - Terminus::Actions::API::Base#detail_duplicate
       - Terminus::Actions::API::Base#detail_enum
       - Terminus::Actions::API::Base#detail_foreign_key
+      - Terminus::Actions::API::Devices::Create#unprocessable_content
+      - Terminus::Actions::API::Devices::Patch#unprocessable_content
+      - Terminus::Actions::API::Firmware::Create#unprocessable_content
+      - Terminus::Actions::API::Firmware::Create#unprocessable_download
+      - Terminus::Actions::API::Firmware::Delete#failure
+      - Terminus::Actions::API::Firmware::Patch#unprocessable_content
+      - Terminus::Actions::API::Firmware::Patch#unprocessable_download
+      - Terminus::Actions::API::Models::Create#unprocessable_content
+      - Terminus::Actions::API::Models::Patch#unprocessable_content
+      - Terminus::Actions::API::Playlists::Create#unprocessable_content
+      - Terminus::Actions::API::Playlists::Patch#unprocessable_content
       - Terminus::Actions::API::Screens::Create#handle
       - Terminus::Actions::API::Screens::Create#save
+      - Terminus::Actions::API::Screens::Create#unprocessable_content_for_creation
+      - Terminus::Actions::API::Screens::Create#unprocessable_content_for_parameters
+      - Terminus::Actions::API::Screens::Delete#failure
       - Terminus::Actions::API::Screens::Patch#replace
+      - Terminus::Actions::API::Screens::Patch#unprocessable_content_for_creation
+      - Terminus::Actions::API::Screens::Patch#unprocessable_content_for_parameters
       - Terminus::Actions::Devices::Create#provision
       - Terminus::Actions::Devices::Create#render_new
       - Terminus::Actions::Devices::Update#edit
@@ -49,6 +65,7 @@ detectors:
       - Terminus::Actions::Users::Update#error
       - Terminus::Aspects::Extensions::Fetcher#maybe_alter_mime_type
       - Terminus::Aspects::Extensions::Renderers::Image#render_multiple
+      - Terminus::Aspects::Playlists::ScreenOptioner#call
       - Terminus::Aspects::Screens::Compressor#convert
       - Terminus::Aspects::Screens::Converters::Color#convert
       - Terminus::Aspects::Screens::Converters::Monochrome#as_one_bit

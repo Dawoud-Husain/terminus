@@ -25,8 +25,8 @@ module Terminus
           end
 
           def failure response
-            body = problem[status: :not_found]
-            response.with body: body.to_json, format: :problem_details, status: 404
+            payload = problem[status: :not_found]
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
         end
       end

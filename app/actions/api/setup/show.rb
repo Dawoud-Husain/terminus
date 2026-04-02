@@ -60,18 +60,18 @@ module Terminus
           end
 
           def not_found error, response
-            body = problem[
+            payload = problem[
               type: "/problem_details#device_setup",
               status: __method__,
               detail: error,
               instance: "/api/setup"
             ]
 
-            response.with body: body.to_json, format: :problem_details, status: 422
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
 
           def unprocessable_content errors, response
-            body = problem[
+            payload = problem[
               type: "/problem_details#device_setup",
               status: __method__,
               detail: "Invalid request headers.",
@@ -79,7 +79,7 @@ module Terminus
               extensions: {errors:}
             ]
 
-            response.with body: body.to_json, format: :problem_details, status: 422
+            response.with body: payload.to_json, format: :problem_details, status: payload.status
           end
         end
       end
