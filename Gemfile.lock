@@ -555,8 +555,8 @@ GEM
       inspectable (~> 1.0)
       pipeable (~> 2.0)
       zeitwerk (~> 2.7)
-    trmnl-liquid (0.5.0)
-      liquid (~> 5.11)
+    trmnl-liquid (0.6.0)
+      liquid (~> 5.12)
       redcarpet (~> 3.6)
       rqrcode (~> 3.2)
       tzinfo (~> 2.0)
@@ -659,7 +659,7 @@ DEPENDENCIES
   sidekiq-scheduler (~> 6.0)
   simplecov (~> 0.22)
   trmnl-api (~> 0.14)
-  trmnl-liquid (~> 0.5)
+  trmnl-liquid (~> 0.6)
   versionaire (~> 15.0)
   warning (~> 1.5)
   wholeable (~> 2.1)
@@ -863,7 +863,7 @@ CHECKSUMS
   tone (3.1.0) sha256=2e2e77f4f43e77d05ae9160c5b16306502b3efc3da1e418c342051f3f4cb2995
   transproc (1.1.1) sha256=b2f9a85ecaf7064f0b3893ffac929de9fd713b13f5aaf822b0bd091fd6f5c8c2
   trmnl-api (0.14.0) sha256=cd0a80197f658871fe31e6049d6b37bb22ed09e39901b4b9f6ce86856a8af7e0
-  trmnl-liquid (0.5.0) sha256=37f768cc0bd1155b68042b75970a2792773c7d044e26c9a0b5896907db96e1e1
+  trmnl-liquid (0.6.0) sha256=d00fea8ca3d25452abdaec821ed4c0f8f3a952ff1e3ae264ffe4851f18109520
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   unicode-display_width (3.2.0) sha256=0cdd96b5681a5949cdbc2c55e7b420facae74c4aaf9a9815eee1087cb1853c42
