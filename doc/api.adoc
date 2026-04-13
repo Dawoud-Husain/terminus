@@ -254,7 +254,7 @@ curl "https://localhost:2443/api/devices/1" \
       "playlist_id": 1,
       "friendly_id": "DEMO11",
       "label": "Demo",
-      "mac_address": "A1:B2:C3:D4:E5:F6",
+      "mac_address": "02:A1:B2:C3:D4:E5",
       "api_key": "OScdcN0kFbKjFcid9Kz6Cx",
       "firmware_version": "1.7.8",
       "wifi": -71,
@@ -283,7 +283,7 @@ curl "https://localhost:2443/api/devices/1" \
     "playlist_id": 1,
     "friendly_id": "DEMO11",
     "label": "Demo",
-    "mac_address": "A1:B2:C3:D4:E5:F6",
+    "mac_address": "02:A1:B2:C3:D4:E5",
     "api_key": "OScdcN0kFbKjFcid9Kz6Cx",
     "firmware_version": "1.7.8",
     "wifi": -71,
@@ -319,9 +319,7 @@ curl -X "POST" "https://localhost:2443/api/devices" \
      -d $'{
   "device": {
     "model_id": 1,
-    "playlist_id": null,
-    "label": "Demo",
-    "mac_address": "A1:B2:C3:D4:E5:F6"
+    "playlist_id": 1
   }
 }'
 ----
@@ -338,7 +336,7 @@ curl -X "POST" "https://localhost:2443/api/devices" \
     "playlist_id": 1,
     "label": "Demo",
     "friendly_id": "DEMO11",
-    "mac_address": "A1:B2:C3:D4:E5:F6",
+    "mac_address": "02:A1:B2:C3:D4:E5",
     "api_key": "OScdcN0kFbKjFcid9Kz6Cx",
     "refresh_rate": 500,
     "image_timeout": 0,
@@ -356,6 +354,10 @@ curl -X "POST" "https://localhost:2443/api/devices" \
   }
 }'
 ----
+
+💡 If you don't need a playlist, you can supply `null` for the `playlist_id`.
+
+💡 When the `mac_address` is not supplied, a locally administered (unicast) MAC address will be generated for you so you can experiment with a virtual device. If you don't want this behavior, ensure you supply the actual MAC address of your physical device.
 ====
 
 .POST Response
@@ -370,7 +372,7 @@ curl -X "POST" "https://localhost:2443/api/devices" \
     "playlist_id": 1,
     "friendly_id": "DEMO11",
     "label": "Demo",
-    "mac_address": "A1:B2:C3:D4:E5:F6",
+    "mac_address": "02:A1:B2:C3:D4:E5",
     "api_key": "OScdcN0kFbKjFcid9Kz6Cx",
     "firmware_version": null,
     "wifi": 0,
@@ -424,7 +426,7 @@ You can change a single attribute or multiple attributes at once. All attributes
     "playlist_id": 1,
     "friendly_id": "DEMO11",
     "label": "Demo",
-    "mac_address": "A1:B2:C3:D4:E5:F6",
+    "mac_address": "02:A1:B2:C3:D4:E5",
     "api_key": "OScdcN0kFbKjFcid9Kz6Cx",
     "firmware_version": "1.7.8",
     "wifi": -71,
@@ -470,7 +472,7 @@ curl -X "DELETE" "https://localhost:2443/api/devices/1" \
     "playlist_id": 1,
     "friendly_id": "DEMO11",
     "label": "Demo",
-    "mac_address": "A1:B2:C3:D4:E5:F6",
+    "mac_address": "02:A1:B2:C3:D4:E5",
     "api_key": "OScdcN0kFbKjFcid9Kz6Cx",
     "firmware_version": "1.7.8",
     "wifi": -71,

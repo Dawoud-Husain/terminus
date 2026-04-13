@@ -1,3 +1,5 @@
 <%= scope(:popover_default_content, name: :mac_address, label: "MAC Address").render do %>
-  <p>Uniquely identifies your device when communicating over the network. Must consist of six segments, be capitalized, and only use hexadecimal characters. Example: <code>A1:B2:C3:D4:E5:F6</code>.</p>
+  <p>Uniquely identifies your device when communicating over the network. Must consist of six segments, be capitalized, and only use hexadecimal characters. Example: <code>02:A1:B2:C3:D4:E5</code>.</p>
+
+  <p>By default, a locally administered, unicast, address is auto-generated for you which is handy when using virtual devices. For physical devices, please use the actual MAC address of your device in order to connect to it properly.</p>
 <% end %>
