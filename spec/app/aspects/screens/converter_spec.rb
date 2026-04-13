@@ -36,8 +36,7 @@ RSpec.describe Terminus::Aspects::Screens::Converter do
           "colormap" => %w[#000000FF #FFFFFFFF],
           "colorspace" => "Gray",
           "depth" => 1,
-          "mimeType" => "image/png",
-          "type" => "Grayscale"
+          "mimeType" => "image/png"
         )
       )
     end
@@ -55,8 +54,7 @@ RSpec.describe Terminus::Aspects::Screens::Converter do
           "colormap" => %w[#000000FF #FFFFFFFF],
           "colorspace" => "Gray",
           "depth" => 1,
-          "mimeType" => "image/png",
-          "type" => "Grayscale"
+          "mimeType" => "image/png"
         )
       )
     end
