@@ -20,7 +20,9 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Image do
     it "renders template with single URI" do
       expect(renderer.call(extension, context:)).to be_success(
         Terminus::Aspects::Extensions::Capsule[
-          content: %(<img src="https://test.io/test.png" alt="Image">)
+          content: <<~CONTENT.strip
+            <html><head></head><body><img src="https://test.io/test.png" alt="Image"></body></html>
+          CONTENT
         ]
       )
     end
@@ -35,9 +37,10 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Image do
 
       expect(renderer.call(extension, context:)).to be_success(
         Terminus::Aspects::Extensions::Capsule[
-          content: <<~CONTENT
-            <img src="https://test.io/one.png" alt="Image">
+          content: <<~CONTENT.strip
+            <html><head></head><body><img src="https://test.io/one.png" alt="Image">
             <img src="https://test.io/two.png" alt="Image">
+            </body></html>
           CONTENT
         ]
       )

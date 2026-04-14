@@ -7,7 +7,7 @@ Hanami.app.register_provider :liquid, namespace: true do
     default = TRMNL::Liquid.new { |environment| environment.error_mode = :strict }
 
     renderer = lambda do |template, data, environment: default|
-      Liquid::Template.parse(template, environment:).render data
+      slice["aspects.sanitizer"].call Liquid::Template.parse(template, environment:).render(data)
     end
 
     register :default, renderer

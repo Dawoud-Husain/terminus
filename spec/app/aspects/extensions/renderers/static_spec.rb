@@ -30,7 +30,15 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Static do
 
       expect(renderer.call(extension, context:)).to be_success(
         Terminus::Aspects::Extensions::Capsule[
-          content: %(<h1>Days</h1>\n\n  <p>One</p>\n\n  <p>Two</p>\n\n)
+          content: <<~CONTENT.strip
+            <html><head></head><body><h1>Days</h1>
+
+              <p>One</p>
+
+              <p>Two</p>
+
+            </body></html>
+          CONTENT
         ]
       )
     end

@@ -42,7 +42,13 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Poll do
 
       expect(renderer.call(extension, context:)).to be_success(
         Terminus::Aspects::Extensions::Capsule[
-          content: %(<h1>Test Label</h1>\n\n  <p>Test: A test.</p>\n\n)
+          content: <<~CONTENT.strip
+            <html><head></head><body><h1>Test Label</h1>
+
+              <p>Test: A test.</p>
+
+            </body></html>
+          CONTENT
         ]
       )
     end
@@ -67,11 +73,12 @@ RSpec.describe Terminus::Aspects::Extensions::Renderers::Poll do
       end
 
       it "answers render template and captures errors" do
-        html = <<~CONTENT
-          <h1>Test Label</h1>
+        html = <<~CONTENT.strip
+          <html><head></head><body><h1>Test Label</h1>
           <p>Test</p>
 
           <p>Test</p>
+          </body></html>
         CONTENT
 
         expect(renderer.call(extension, context:)).to be_failure(
