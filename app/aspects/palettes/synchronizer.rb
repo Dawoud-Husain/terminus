@@ -34,6 +34,7 @@ module Terminus
           repository.delete_all kind: default_kind, name: local_names - remote_names
         end
 
+        # :reek:TooManyStatements
         def upsert payload
           payload.each do |item|
             attributes = transform item
@@ -45,6 +46,8 @@ module Terminus
               repository.create(**attributes)
             end
           end
+
+          Success()
         end
 
         def transform(item) = item.to_h.then { {**it, kind: default_kind} }

@@ -24,7 +24,7 @@ RSpec.describe Terminus::Aspects::Palettes::Synchronizer, :db do
   let(:repository) { Terminus::Repositories::Palette.new }
 
   describe "#call" do
-    context "with no remote models" do
+    context "with no remote palettes" do
       let(:trmnl_api) { instance_double TRMNL::API::Client, palettes: Success([]) }
 
       it "deletes core records" do
@@ -65,7 +65,11 @@ RSpec.describe Terminus::Aspects::Palettes::Synchronizer, :db do
       )
     end
 
-    it "answers failure when models can't be obtained" do
+    it "answers success" do
+      expect(synchronizer.call).to be_success
+    end
+
+    it "answers failure when palettes can't be obtained" do
       trmnl_api = instance_spy TRMNL::API::Client, palettes: Failure("Danger!")
       synchronizer = described_class.new(trmnl_api:)
 
