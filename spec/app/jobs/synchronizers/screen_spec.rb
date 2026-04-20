@@ -62,7 +62,7 @@ RSpec.describe Terminus::Jobs::Synchronizers::Screen, :db do
 
       it "logs information" do
         job.perform
-        expect(logger.reread).to match(/INFO.+Screen polling disabled\./)
+        expect(logger.reread).to match(/INFO.+Screen synchronization is disabled\./)
       end
     end
   end

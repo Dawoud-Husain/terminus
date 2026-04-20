@@ -19,7 +19,7 @@ module Terminus
         def perform
           return process_devices if settings.screen_synchronizer
 
-          logger.info { "Screen polling disabled." }
+          logger.info { "Screen synchronization is disabled." }
         end
 
         private
