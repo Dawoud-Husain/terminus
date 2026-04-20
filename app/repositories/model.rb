@@ -11,31 +11,37 @@ module Terminus
                plugins_options: {timestamps: {timestamps: :updated_at}}
 
       def all
-        model.order { label.asc }
-             .to_a
+        with_associations.order { label.asc }
+                         .to_a
       end
 
       def delete_all(**) = model.where(**).delete
 
-      def find(id) = (model.by_pk(id).one if id)
+      def find(id) = (with_associations.by_pk(id).one if id)
 
-      def find_by(**) = model.where(**).one
+      def find_by(**) = with_associations.where(**).one
 
       def find_or_create(key, value, **)
-        model.where(key => value).one.then { |record| record || create(name: value, **) }
+        with_associations.where(key => value)
+                         .one
+                         .then { |record| record || create(name: value, **) }
       end
 
       def search key, value
-        model.where(Sequel.ilike(key, "%#{value}%"))
-             .order { created_at.asc }
-             .to_a
+        with_associations.where(Sequel.ilike(key, "%#{value}%"))
+                         .order { created_at.asc }
+                         .to_a
       end
 
       def where(**)
-        model.where(**)
-             .order { created_at.asc }
-             .to_a
+        with_associations.where(**)
+                         .order { created_at.asc }
+                         .to_a
       end
+
+      private
+
+      def with_associations = model.combine(:default_palette)
     end
   end
 end

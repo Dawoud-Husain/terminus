@@ -41,7 +41,7 @@ RSpec.describe Terminus::Repositories::Model, :db do
 
   describe "#find" do
     it "answers record by ID" do
-      expect(repository.find(model.id)).to eq(model)
+      expect(repository.find(model.id).id).to eq(model.id)
     end
 
     it "answers nil for unknown ID" do
@@ -55,12 +55,12 @@ RSpec.describe Terminus::Repositories::Model, :db do
 
   describe "#find_by" do
     it "answers record when found by single attribute" do
-      expect(repository.find_by(name: model.name)).to eq(model)
+      expect(repository.find_by(name: model.name).id).to eq(model.id)
     end
 
     it "answers record when found by multiple attributes" do
       model
-      expect(repository.find_by(width: 800, height: 480)).to eq(model)
+      expect(repository.find_by(width: 800, height: 480).id).to eq(model.id)
     end
 
     it "answers nil when not found" do
@@ -77,7 +77,7 @@ RSpec.describe Terminus::Repositories::Model, :db do
       model
       record = repository.find_or_create :name, model.name, label: "Upsert"
 
-      expect(record).to eq(model)
+      expect(record.id).to eq(model.id)
     end
 
     it "creates new record when record doesn't exist" do
@@ -106,11 +106,13 @@ RSpec.describe Terminus::Repositories::Model, :db do
 
   describe "#where" do
     it "answers record for single attribute" do
-      expect(repository.where(label: model.label)).to contain_exactly(model)
+      ids = repository.where(label: model.label).map(&:id)
+      expect(ids).to contain_exactly(model.id)
     end
 
     it "answers record for multiple attributes" do
-      expect(repository.where(label: model.label, name: model.name)).to contain_exactly(model)
+      ids = repository.where(label: model.label, name: model.name).map(&:id)
+      expect(ids).to contain_exactly(model.id)
     end
 
     it "answers empty array for unknown value" do
