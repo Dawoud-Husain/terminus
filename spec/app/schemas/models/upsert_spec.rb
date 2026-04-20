@@ -11,6 +11,7 @@ RSpec.describe Terminus::Schemas::Models::Upsert do
         name: "test",
         label: "Test",
         description: "A test.",
+        default_palette_id: 1,
         mime_type: "image/png",
         colors: 16,
         bit_depth: 4,
@@ -20,17 +21,12 @@ RSpec.describe Terminus::Schemas::Models::Upsert do
         scale_factor: 1.8,
         width: 1872,
         height: 1404,
-        palette_names: "bw gray-4 gray-16",
         css: {classes: {size: "screen--lg", device: "screen--v2"}}.to_json
       }
     end
 
     it "answers success when all attributes are valid" do
       expect(contract.call(attributes).to_monad).to be_success
-    end
-
-    it "answers palette IDs array" do
-      expect(contract.call(attributes).to_h).to include(palette_names: %w[bw gray-4 gray-16])
     end
 
     it "answers CSS hash" do

@@ -9,6 +9,7 @@ module Terminus
         required(:name).filled :string
         required(:label).filled :string
         optional(:description).maybe :string
+        optional(:default_palette_id).maybe :integer
         optional(:mime_type).filled :string
         optional(:colors).filled :integer
         optional(:bit_depth).filled :integer
@@ -18,10 +19,8 @@ module Terminus
         optional(:scale_factor).filled :float
         optional(:width).filled :integer
         optional(:height).filled :integer
-        optional(:palette_names).maybe :array
         optional(:css).maybe :hash
 
-        after(:value_coercer, &Coercers::LinesToArray.curry[:palette_names])
         after(:value_coercer, &Coercers::JSONToHash.curry[:css])
       end
     end
