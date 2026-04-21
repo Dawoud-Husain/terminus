@@ -5,7 +5,8 @@ require "hanami_helper"
 RSpec.describe "/api/models", :db do
   include_context "with JWT"
 
-  let(:model) { Factory[:model] }
+  let(:palette) { Factory[:palette] }
+  let(:model) { Factory[:model, default_palette_id: palette.id] }
 
   let :attributes do
     {
@@ -19,7 +20,6 @@ RSpec.describe "/api/models", :db do
       offset_x: 10,
       offset_y: 15,
       scale_factor: 1.5,
-      palette_names: ["bw"],
       css: {"classes" => {"size" => "small"}},
       width: 800,
       height: 480
@@ -37,6 +37,7 @@ RSpec.describe "/api/models", :db do
     expect(json_payload).to match(
       data: [
         {
+          default_palette_id: palette.id,
           id: model.id,
           label: model.label,
           name: model.name,
@@ -49,7 +50,6 @@ RSpec.describe "/api/models", :db do
           offset_x: 0,
           offset_y: 0,
           scale_factor: 1.0,
-          palette_names: [],
           css: {},
           width: 800,
           height: 480,
@@ -77,6 +77,7 @@ RSpec.describe "/api/models", :db do
 
     expect(json_payload).to match(
       data: {
+        default_palette_id: palette.id,
         id: model.id,
         label: model.label,
         name: model.name,
@@ -89,7 +90,6 @@ RSpec.describe "/api/models", :db do
         offset_x: 0,
         offset_y: 0,
         scale_factor: 1.0,
-        palette_names: [],
         css: {},
         width: 800,
         height: 480,
@@ -116,6 +116,7 @@ RSpec.describe "/api/models", :db do
 
     expect(json_payload).to match(
       data: {
+        default_palette_id: nil,
         id: kind_of(Integer),
         label: "Test",
         name: "test",
@@ -128,7 +129,6 @@ RSpec.describe "/api/models", :db do
         offset_x: 10,
         offset_y: 15,
         scale_factor: 1.5,
-        palette_names: ["bw"],
         css: {classes: {size: "small"}},
         width: 800,
         height: 480,
@@ -171,6 +171,7 @@ RSpec.describe "/api/models", :db do
 
     expect(json_payload).to match(
       data: {
+        default_palette_id: palette.id,
         id: model.id,
         label: "Test",
         name: "test",
@@ -183,7 +184,6 @@ RSpec.describe "/api/models", :db do
         offset_x: 10,
         offset_y: 15,
         scale_factor: 1.5,
-        palette_names: ["bw"],
         css: {classes: {size: "small"}},
         width: 800,
         height: 480,
@@ -222,6 +222,7 @@ RSpec.describe "/api/models", :db do
 
     expect(json_payload).to match(
       data: {
+        default_palette_id: palette.id,
         id: model.id,
         label: model.label,
         name: model.name,
@@ -234,7 +235,6 @@ RSpec.describe "/api/models", :db do
         offset_x: 0,
         offset_y: 0,
         scale_factor: 1.0,
-        palette_names: [],
         css: {},
         width: 800,
         height: 480,

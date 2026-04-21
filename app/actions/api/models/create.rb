@@ -13,6 +13,7 @@ module Terminus
 
           params do
             required(:model).filled(:hash) do
+              optional(:default_palette_id).maybe :integer
               required(:name).filled :string
               required(:label).filled :string
               optional(:description).maybe :string
@@ -23,7 +24,6 @@ module Terminus
               optional(:rotation).filled :integer
               optional(:offset_x).filled :integer
               optional(:offset_y).filled :integer
-              optional(:palette_names).maybe :array
               optional(:css).maybe :hash
               optional(:width).filled :integer
               optional(:height).filled :integer

@@ -6,6 +6,7 @@ module Terminus
     # A model serializer for specific keys.
     class Model
       KEYS = %i[
+        default_palette_id
         id
         name
         label
@@ -18,7 +19,6 @@ module Terminus
         offset_x
         offset_y
         scale_factor
-        palette_names
         css
         width
         height

@@ -9,6 +9,7 @@ RSpec.describe Terminus::Serializers::Model do
 
   let :attributes do
     {
+      default_palette_id: 1,
       name: "t1",
       label: "T1",
       description: nil,
@@ -20,7 +21,6 @@ RSpec.describe Terminus::Serializers::Model do
       offset_x: 10,
       offset_y: 15,
       scale_factor: 1.5,
-      palette_names: ["bw"],
       css: {"classes" => {"size" => "screen--md"}},
       width: 800,
       height: 480,

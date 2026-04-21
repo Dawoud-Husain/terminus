@@ -675,7 +675,7 @@ You'll get an empty hash when there is nothing to delete.
 
 Provides model information which is the core specification for devices and screens. Models are also differentiated by `kind` which can be:
 
-* `trmnl`: Originates from our {core_link} server and is part of the synchronization process provided by the model link:/doc/jobs.adoc[Job].
+* `byod`, `kindle`, `tidybit`, `trmnl`: Originates from our {core_link} server and is part of the synchronization process provided by the model link:/doc/jobs.adoc[Job].
 * `terminus`: Originates from Terminus only.
 * `+*+`: Additional types exist for custom devices such as Kindle, BYOD, and so forth.
 
@@ -707,6 +707,7 @@ curl "https://localhost:2443/api/models/1" \
 {
   "data": [
     {
+      "default_palette_id": 1,
       "id": 1,
       "name": "v2",
       "label": "TRMNL X",
@@ -719,11 +720,6 @@ curl "https://localhost:2443/api/models/1" \
       "offset_x": 0,
       "offset_y": 0,
       "scale_factor": 1.8,
-      "palette_names": [
-        "gray-16",
-        "gray-4",
-        "bw"
-      ],
       "css": {
         "classes": {
           "size": "screen--lg",
@@ -767,6 +763,7 @@ curl "https://localhost:2443/api/models/1" \
 
 # Single model.
 "data": {
+  "default_palette_id": 1,
   "id": 1,
   "name": "v2",
   "label": "TRMNL X",
@@ -779,11 +776,6 @@ curl "https://localhost:2443/api/models/1" \
   "offset_x": 0,
   "offset_y": 0,
   "scale_factor": 1.8,
-  "palette_names": [
-    "gray-16",
-    "gray-4",
-    "bw"
-  ],
   "css": {
     "classes": {
       "size": "screen--lg",
@@ -837,23 +829,25 @@ curl -X "POST" "https://localhost:2443/api/models" \
      -H 'Content-Type: application/json' \
      -d $'{
   "model": {
-    name: "demo",
-    label: "Demo",
-    description: "A demonstration.",
-    mime_type: "image/png",
-    bit_depth: 2,
-    colors: 4,
-    palette_names: ["bw"],
-    css: {"classes" => {"size" => "screen--md"}},
-    scale_factor: 1.5,
-    rotation: 90,
-    offset_x: 10,
-    offset_y: 15,
-    width: 800,
-    height: 480
+    "default_palette_id": 1,
+    "name": "demo",
+    "label": "Demo",
+    "description": "A demonstration.",
+    "mime_type": "image/png",
+    "bit_depth": 2,
+    "colors": 4,
+    "css": {"classes" => {"size" => "screen--md"}},
+    "scale_factor": 1.5,
+    "rotation": 90,
+    "offset_x": 10,
+    "offset_y": 15,
+    "width": 800,
+    "height": 480
   }
 }'
 ----
+
+The `default_palette_id` key is optional. You can also use `nil` for the value to remove the default palette (although, using a default palette is recommended). At the moment, there isn't an API for palettes (this will be added in the future).
 ====
 
 .POST Response
@@ -863,6 +857,7 @@ curl -X "POST" "https://localhost:2443/api/models" \
 ----
 {
   "data": {
+    "default_palette_id": 1,
     "id": 1,
     "name": "demo",
     "label": "Demo",
@@ -875,9 +870,6 @@ curl -X "POST" "https://localhost:2443/api/models" \
     "offset_x": 10,
     "offset_y": 15,
     "scale_factor": 1.5,
-    "palette_names": [
-      "bw"
-    ],
     "css": {
       "classes": {
         "size": "screen-md"
@@ -917,6 +909,7 @@ You can change a single attribute or multiple attributes at once. All attributes
 ----
 {
   "data": {
+    "default_palette_id": nil,
     "id": 1,
     "name": "demo",
     "label": "Demo",
@@ -929,9 +922,6 @@ You can change a single attribute or multiple attributes at once. All attributes
     "offset_x": 10,
     "offset_y": 15,
     "scale_factor": 1.5,
-    "palette_names": [
-      "bw"
-    ],
     "css": {
       "classes": {
         "size": "screen-md"
@@ -965,6 +955,7 @@ curl -X "DELETE" "https://localhost:2443/api/models/2" \
 ----
 {
   "data": {
+    "default_palette_id": 1,
     "id": 1,
     "name": "demo",
     "label": "Demo",
@@ -977,9 +968,6 @@ curl -X "DELETE" "https://localhost:2443/api/models/2" \
     "offset_x": 10,
     "offset_y": 15,
     "scale_factor": 1.5,
-    "palette_names": [
-      "bw"
-    ],
     "css": {
       "classes": {
         "size": "screen-md"
