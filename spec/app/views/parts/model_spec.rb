@@ -7,13 +7,6 @@ RSpec.describe Terminus::Views::Parts::Model, :db do
 
   let(:model) { Factory.structs[:model] }
 
-  let :view do
-    Class.new Hanami::View do
-      config.paths = [Hanami.app.root.join("app/templates")]
-      config.template = "n/a"
-    end
-  end
-
   describe "#allowd_palettes", :db do
     let(:model) { Factory[:model] }
     let(:palette) { Factory[:palette, name: "test"] }

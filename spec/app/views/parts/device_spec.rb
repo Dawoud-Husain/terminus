@@ -5,16 +5,9 @@ require "hanami_helper"
 RSpec.describe Terminus::Views::Parts::Device, :db do
   using Refinements::Pathname
 
-  subject(:part) { described_class.new value: device, rendering: view.new.rendering }
+  subject(:part) { described_class.new value: device, rendering: Terminus::View.new.rendering }
 
   let(:device) { Factory[:device] }
-
-  let :view do
-    Class.new Hanami::View do
-      config.paths = [Hanami.app.root.join("app/templates")]
-      config.template = "n/a"
-    end
-  end
 
   describe "#current_screen" do
     let :device do

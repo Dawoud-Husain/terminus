@@ -3,17 +3,10 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Views::Parts::Extension do
-  subject(:part) { described_class.new value: extension, rendering: view.new.rendering }
+  subject(:part) { described_class.new value: extension, rendering: Terminus::View.new.rendering }
 
   let :extension do
     Factory.structs[:extension, kind: "poll", verb: "get", unit: "none"]
-  end
-
-  let :view do
-    Class.new Hanami::View do
-      config.paths = [Hanami.app.root.join("app/templates")]
-      config.template = "n/a"
-    end
   end
 
   describe "#alpine_tags" do

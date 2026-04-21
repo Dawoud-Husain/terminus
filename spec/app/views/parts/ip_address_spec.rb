@@ -5,7 +5,7 @@ require "hanami_helper"
 RSpec.describe Terminus::Views::Parts::IPAddress do
   using Refinements::Pathname
 
-  subject(:part) { described_class.new value: address, rendering: view.new.rendering }
+  subject(:part) { described_class.new value: address, rendering: Terminus::View.new.rendering }
 
   let :address do
     instance_double(
@@ -18,13 +18,6 @@ RSpec.describe Terminus::Views::Parts::IPAddress do
         ipv4_loopback?: false
       )
     )
-  end
-
-  let :view do
-    Class.new Hanami::View do
-      config.paths = [Hanami.app.root.join("app/templates")]
-      config.template = "n/a"
-    end
   end
 
   describe "#address" do

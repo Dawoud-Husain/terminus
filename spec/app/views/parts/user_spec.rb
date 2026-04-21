@@ -3,16 +3,9 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Views::Parts::User do
-  subject(:part) { described_class.new value: user, rendering: view.new.rendering }
+  subject(:part) { described_class.new value: user, rendering: Terminus::View.new.rendering }
 
   let(:user) { Factory.structs[:user, status_id: 1] }
-
-  let :view do
-    Class.new Hanami::View do
-      config.paths = [Hanami.app.root.join("app/templates")]
-      config.template = "n/a"
-    end
-  end
 
   describe "#pill" do
     it "answers warning when unverified" do

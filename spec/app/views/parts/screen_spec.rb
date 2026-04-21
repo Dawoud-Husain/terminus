@@ -3,16 +3,9 @@
 require "hanami_helper"
 
 RSpec.describe Terminus::Views::Parts::Screen do
-  subject(:part) { described_class.new value: screen, rendering: view.new.rendering }
+  subject(:part) { described_class.new value: screen, rendering: Terminus::View.new.rendering }
 
   let(:screen) { Factory.structs[:screen, :with_image] }
-
-  let :view do
-    Class.new Hanami::View do
-      config.paths = [Hanami.app.root.join("app/templates")]
-      config.template = "n/a"
-    end
-  end
 
   describe "#dimensions" do
     it "answers default dimensions" do
