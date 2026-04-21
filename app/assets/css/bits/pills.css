@@ -16,6 +16,11 @@
   background-color: var(--site-green);
 }
 
+.bit-pill-alert {
+  color: var(--site-white);
+  background-color: var(--site-red);
+}
+
 .bit-pill-caution {
   color: var(--site-black);
   background-color: var(--site-yellow);
