@@ -32,10 +32,12 @@ module Terminus
         end
 
         def status
+          span = helpers.tag.method :span
+
           if errors.empty?
-            helpers.tag.span "Success", class: "bit-pill bit-pill-active"
+            span.call "Success", class: "bit-pill bit-pill-active"
           else
-            helpers.tag.span "Failure", class: "bit-pill bit-pill-alert"
+            span.call "Failure", class: "bit-pill bit-pill-alert"
           end
         end
       end
