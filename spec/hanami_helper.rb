@@ -66,6 +66,7 @@ RSpec.configure do |config|
   config.before do
     Hanami.app[:shrine].storages.each_value(&:clear!)
     Sidekiq.redis(&:flushdb)
+    Sidekiq::Worker.clear_all
   end
 
   config.prepend_before :each, :db do |example|
