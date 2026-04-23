@@ -24,6 +24,7 @@ module Terminus
 
           def process input
             http.headers(input.headers)
+                .follow
                 .public_send(input.verb, input.uri)
                 .then { it.status.success? ? Success(it) : build_detailed_failure(input, it) }
           rescue HTTP::RequestError then build_failure input, "Unable to make request"
