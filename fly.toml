@@ -1,0 +1,27 @@
+app = 'trmnl-kobo-server'
+primary_region = 'yyz'
+
+[build]
+
+[http_service]
+  internal_port = 2300
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[processes]
+  app = "scripts/docker/start-all"
+
+[[restart]]
+  policy = "always"
+  retries = 10
+  processes = ["app"]
+
+[[vm]]
+  processes = ['app']
+  memory = '2gb'
+  cpus = 2
+  cpu_kind = 'shared'
+  memory_mb = 2048

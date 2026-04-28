@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cleanup() {
+  kill -TERM "${SIDEKIQ_PID:-0}" "${PUMA_PID:-0}" 2>/dev/null || true
+  wait || true
+}
+trap cleanup TERM INT
+
+bundle exec sidekiq -r ./config/sidekiq.rb &
+SIDEKIQ_PID=$!
+
+bundle exec puma --config ./config/puma.rb &
+PUMA_PID=$!
+
+wait -n
+EXIT=$?
+cleanup
+exit "$EXIT"
