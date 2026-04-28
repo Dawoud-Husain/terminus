@@ -1,0 +1,366 @@
+{% assign d = source_1.data %}
+{% assign t = d.timings %}
+{% assign hijri = d.date.hijri %}
+{% assign greg = d.date.gregorian %}
+{% assign meta = d.meta %}
+
+{% template ar %}{%- assign _s = input | append: '' -%}{{- _s | replace: '0', '٠' | replace: '1', '١' | replace: '2', '٢' | replace: '3', '٣' | replace: '4', '٤' | replace: '5', '٥' | replace: '6', '٦' | replace: '7', '٧' | replace: '8', '٨' | replace: '9', '٩' -}}{% endtemplate %}
+
+{% template to12h %}
+{%- assign _p = time | slice: 0, 5 | split: ':' -%}
+{%- assign _h = _p[0] | plus: 0 -%}
+{%- assign _m = _p[1] -%}
+{%- assign _period = 'ص' -%}
+{%- if _h >= 12 -%}{%- assign _period = 'م' -%}{%- if _h > 12 -%}{%- assign _h = _h | minus: 12 -%}{%- endif -%}{%- elsif _h == 0 -%}{%- assign _h = 12 -%}{%- endif -%}
+{%- assign _h_str = _h | append: '' -%}
+{%- assign _h_ar = _h_str | replace: '0', '٠' | replace: '1', '١' | replace: '2', '٢' | replace: '3', '٣' | replace: '4', '٤' | replace: '5', '٥' | replace: '6', '٦' | replace: '7', '٧' | replace: '8', '٨' | replace: '9', '٩' -%}
+{%- assign _m_ar = _m | replace: '0', '٠' | replace: '1', '١' | replace: '2', '٢' | replace: '3', '٣' | replace: '4', '٤' | replace: '5', '٥' | replace: '6', '٦' | replace: '7', '٧' | replace: '8', '٨' | replace: '9', '٩' -%}
+{{- _h_ar }}:{{ _m_ar }}<span class="ar-period">{{ _period }}</span>
+{% endtemplate %}
+
+<div class="{{extension.css_classes}}">
+<div class="view view--full">
+
+{% if d and t.Fajr %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&display=swap');
+
+html, body { height: 100%; min-height: 100%; margin: 0; padding: 0; }
+body > div { height: 100%; min-height: 100%; }
+
+.view--full {
+  display: flex !important;
+  flex-direction: column !important;
+  direction: rtl;
+  font-family: 'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif;
+  background: #fff;
+  color: #000;
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+}
+.view--full *, .view--full *::before, .view--full *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.ar-head {
+  background: #000;
+  color: #fff;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex-shrink: 0;
+}
+.ar-head-left { display: flex; align-items: center; gap: 10px; z-index: 1; }
+.ar-head-icon svg { display: block; }
+.ar-head-title { font-size: 1.6em; font-weight: 700; line-height: 1; }
+.ar-head-sub { font-size: 0.72em; opacity: 0.6; margin-top: 2px; direction: ltr; }
+
+.ar-head-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  direction: ltr;
+  line-height: 1;
+  z-index: 1;
+}
+.ar-cur-time {
+  font-size: 3.2em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.ar-cur-period {
+  font-size: 0.4em;
+  vertical-align: super;
+  margin-left: 3px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.ar-hijri { text-align: center; line-height: 1.25; z-index: 1; }
+.ar-hijri-wd    { font-size: 0.72em; opacity: 0.75; }
+.ar-hijri-day   { font-size: 1.8em; font-weight: 700; line-height: 1; }
+.ar-hijri-month { font-size: 0.88em; }
+.ar-hijri-year  { font-size: 0.7em; opacity: 0.7; margin-top: 1px; }
+
+.ar-cd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 16px;
+  border-bottom: 2px solid #000;
+  background: #f2f2f2;
+  flex-shrink: 0;
+}
+.ar-cd-lbl  { font-size: 0.85em; color: #555; }
+.ar-cd-name { font-size: 1.2em; font-weight: 700; }
+.ar-cd-dot  { color: #bbb; }
+.ar-cd-timer {
+  font-size: 1.45em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: #000;
+  color: #fff;
+  padding: 1px 10px 2px;
+  border-radius: 3px;
+  direction: ltr;
+  letter-spacing: 0.04em;
+}
+
+.ar-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1px;
+  background: #000;
+  overflow: hidden;
+}
+.ar-prayer {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 4px;
+  gap: 3px;
+}
+.ar-prayer.active { background: #000; color: #fff; }
+.ar-pname { font-size: 1.8em; font-weight: 700; line-height: 1; }
+.ar-ptime {
+  font-size: 2em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  direction: ltr;
+}
+.ar-period {
+  font-size: 0.45em;
+  vertical-align: super;
+  margin-right: 2px;
+  font-weight: 700;
+}
+
+.ar-info { background: #f7f7f7 !important; color: #000 !important; gap: 2px; }
+.ar-info-day { font-size: 2em; font-weight: 700; line-height: 1; }
+.ar-info-ar  { font-size: 0.78em; color: #444; text-align: center; line-height: 1.3; }
+
+.ar-extras {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #000;
+  border-top: 2px solid #000;
+  flex-shrink: 0;
+}
+.ar-extra {
+  background: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 4px;
+  gap: 1px;
+}
+.ar-extra-lbl { font-size: 0.72em; color: #666; }
+.ar-extra-t   { font-size: 0.95em; font-weight: 700; direction: ltr; }
+
+.ar-foot {
+  padding: 3px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65em;
+  color: #999;
+  border-top: 1px solid #ddd;
+  flex-shrink: 0;
+}
+.ar-moon { display: flex; align-items: center; gap: 5px; direction: rtl; }
+.ar-moon-emoji { font-size: 1.3em; }
+.ar-moon-name  { font-size: 0.95em; color: #777; }
+</style>
+
+  <div class="ar-head">
+    <div class="ar-head-left">
+      <div class="ar-head-icon">
+        <svg width="34" height="34" viewBox="0 -64 640 640" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="m0 480c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-320h-128zm579.16-192c17.86-17.39 28.84-37.34 28.84-58.91 0-52.86-41.79-93.79-87.92-122.9-41.94-26.47-80.63-57.77-111.96-96.22l-8.12-9.97-8.12 9.97c-31.33 38.45-70.01 69.76-111.96 96.22-46.13 29.11-87.92 70.04-87.92 122.9 0 21.57 10.98 41.52 28.84 58.91zm28.84 32h-416c-17.67 0-32 14.33-32 32v128c0 17.67 14.33 32 32 32h32v-64c0-17.67 14.33-32 32-32s32 14.33 32 32v64h64v-72c0-48 48-72 48-72s48 24 48 72v72h64v-64c0-17.67 14.33-32 32-32s32 14.33 32 32v64h32c17.67 0 32-14.33 32-32v-128c0-17.67-14.33-32-32-32zm-544-320s-64 32-64 96v32h128v-32c0-64-64-96-64-96z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="ar-head-title">أوقات الصلاة</div>
+        <div class="ar-head-sub">{{ meta.timezone }}</div>
+      </div>
+    </div>
+    <div class="ar-head-center">
+      <span class="ar-cur-time" id="cur-time">{% render "to12h", time: 'now' | date: '%H:%M' %}</span>
+    </div>
+    <div class="ar-hijri">
+      <div class="ar-hijri-wd">{{ hijri.weekday.ar }}</div>
+      <div class="ar-hijri-day">{% render "ar", input: hijri.day %}</div>
+      <div class="ar-hijri-month">{{ hijri.month.ar }}</div>
+      <div class="ar-hijri-year">{% render "ar", input: hijri.year %} هـ</div>
+    </div>
+  </div>
+
+  <div class="ar-cd">
+    <span class="ar-cd-lbl">الصلاة القادمة</span>
+    <span class="ar-cd-name" id="cd-name">—</span>
+    <span class="ar-cd-dot">·</span>
+    <span class="ar-cd-timer" id="cd-timer">--:--</span>
+  </div>
+
+  <div class="ar-grid">
+    <div class="ar-prayer" data-key="fajr">
+      <span class="ar-pname">الفجر</span>
+      <span class="ar-ptime">{% render "to12h", time: t.Fajr %}</span>
+    </div>
+    <div class="ar-prayer" data-key="dhuhr">
+      <span class="ar-pname">الظهر</span>
+      <span class="ar-ptime">{% render "to12h", time: t.Dhuhr %}</span>
+    </div>
+    <div class="ar-prayer" data-key="asr">
+      <span class="ar-pname">العصر</span>
+      <span class="ar-ptime">{% render "to12h", time: t.Asr %}</span>
+    </div>
+    <div class="ar-prayer" data-key="maghrib">
+      <span class="ar-pname">المغرب</span>
+      <span class="ar-ptime">{% render "to12h", time: t.Maghrib %}</span>
+    </div>
+    <div class="ar-prayer" data-key="isha">
+      <span class="ar-pname">العشاء</span>
+      <span class="ar-ptime">{% render "to12h", time: t.Isha %}</span>
+    </div>
+    <div class="ar-prayer ar-info">
+      <div class="ar-info-ar" id="greg-ar-wd"></div>
+      <div class="ar-info-day">{% render "ar", input: greg.day %}</div>
+      <div class="ar-info-ar" id="greg-ar-mon"></div>
+    </div>
+  </div>
+
+  <div class="ar-extras">
+    <div class="ar-extra">
+      <span class="ar-extra-lbl">الإمساك</span>
+      <span class="ar-extra-t">{% render "to12h", time: t.Imsak %}</span>
+    </div>
+    <div class="ar-extra">
+      <span class="ar-extra-lbl">الشروق</span>
+      <span class="ar-extra-t">{% render "to12h", time: t.Sunrise %}</span>
+    </div>
+    <div class="ar-extra">
+      <span class="ar-extra-lbl">الغروب</span>
+      <span class="ar-extra-t">{% render "to12h", time: t.Sunset %}</span>
+    </div>
+    <div class="ar-extra">
+      <span class="ar-extra-lbl">منتصف الليل</span>
+      <span class="ar-extra-t">{% render "to12h", time: t.Midnight %}</span>
+    </div>
+  </div>
+
+  <div class="ar-foot">
+    <span id="greg-ar-full"></span>
+    <div class="ar-moon">
+      <span class="ar-moon-name" id="moon-name"></span>
+      <span class="ar-moon-emoji" id="moon-emoji">🌙</span>
+    </div>
+  </div>
+
+<script>
+(function () {
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function ar(s) { return String(s).replace(/\d/g, function(d) { return String.fromCharCode(0x0660 + Number(d)); }); }
+
+  var dateObj = new Date({{ greg.year }}, {{ greg.month.number | minus: 1 }}, {{ greg.day }});
+  try {
+    var parts = new Intl.DateTimeFormat('ar', {
+      weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+    }).formatToParts(dateObj);
+    var get = function (type) {
+      var p = parts.find(function (x) { return x.type === type; });
+      return p ? p.value : '';
+    };
+    document.getElementById('greg-ar-wd').textContent   = get('weekday');
+    document.getElementById('greg-ar-mon').textContent  = get('month') + ' ' + get('year');
+    document.getElementById('greg-ar-full').textContent =
+      get('day') + ' ' + get('month') + ' ' + get('year');
+  } catch (e) {}
+
+  var KNOWN_NEW_MOON = 946512000000;
+  var PHASES = [
+    { max: 1.85,  emoji: '🌑', ar: 'محاق' },
+    { max: 5.55,  emoji: '🌒', ar: 'هلال متزايد' },
+    { max: 9.25,  emoji: '🌓', ar: 'تربيع أول' },
+    { max: 12.95, emoji: '🌔', ar: 'أحدب متزايد' },
+    { max: 16.65, emoji: '🌕', ar: 'بدر' },
+    { max: 20.35, emoji: '🌖', ar: 'أحدب متناقص' },
+    { max: 24.05, emoji: '🌗', ar: 'تربيع أخير' },
+    { max: 27.75, emoji: '🌘', ar: 'هلال متناقص' },
+    { max: 29.53, emoji: '🌑', ar: 'محاق' }
+  ];
+  var cycle = ((Date.now() - KNOWN_NEW_MOON) / 86400000) % 29.53059;
+  if (cycle < 0) cycle += 29.53059;
+  var phase = PHASES.find(function (p) { return cycle < p.max; }) || PHASES[0];
+  document.getElementById('moon-emoji').textContent = phase.emoji;
+  document.getElementById('moon-name').textContent  = phase.ar;
+
+  var PRAYERS = [
+    { key: 'fajr',    ar: 'الفجر',  t: '{{ t.Fajr    | slice: 0, 5 }}' },
+    { key: 'dhuhr',   ar: 'الظهر',  t: '{{ t.Dhuhr   | slice: 0, 5 }}' },
+    { key: 'asr',     ar: 'العصر',  t: '{{ t.Asr     | slice: 0, 5 }}' },
+    { key: 'maghrib', ar: 'المغرب', t: '{{ t.Maghrib | slice: 0, 5 }}' },
+    { key: 'isha',    ar: 'العشاء', t: '{{ t.Isha    | slice: 0, 5 }}' }
+  ];
+
+  function toMins(s) {
+    var p = s.split(':');
+    return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+  }
+
+  PRAYERS.forEach(function (p) { p.m = toMins(p.t); });
+
+  var prayerEls  = document.querySelectorAll('.ar-prayer[data-key]');
+  var elCurTime  = document.getElementById('cur-time');
+  var elCdName   = document.getElementById('cd-name');
+  var elCdTimer  = document.getElementById('cd-timer');
+
+  function tick() {
+    var now = new Date();
+    var ch  = now.getHours();
+    var cm  = now.getMinutes();
+    var nm  = ch * 60 + cm;
+    var ns  = now.getSeconds();
+
+    var cp = ch >= 12 ? 'م' : 'ص';
+    if (ch > 12) ch -= 12;
+    if (ch === 0) ch = 12;
+    elCurTime.innerHTML = ar(ch) + ':' + ar(pad(cm)) + '<span class="ar-cur-period">' + cp + '</span>';
+
+    var next = PRAYERS.find(function (p) { return p.m > nm; }) || PRAYERS[0];
+    prayerEls.forEach(function (el) {
+      el.classList.toggle('active', el.dataset.key === next.key);
+    });
+
+    var diff = (next.m - nm) * 60 - ns;
+    if (diff <= 0) diff += 86400;
+    elCdName.textContent  = next.ar;
+    elCdTimer.textContent = ar(pad(Math.floor(diff / 3600))) + ':' + ar(pad(Math.floor((diff % 3600) / 60)));
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+
+{% else %}
+<div style="direction:rtl;font-family:'Amiri',serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;text-align:center;padding:24px;">
+  <div style="font-size:3em;">🕌</div>
+  <div style="font-size:1.8em;font-weight:700;">أوقات الصلاة</div>
+  <div style="font-size:1em;color:#666;line-height:1.7;">أدخل موقعك في إعدادات التبادل<br>لعرض أوقات الصلاة</div>
+</div>
+{% endif %}
+
+</div>
+</div>
