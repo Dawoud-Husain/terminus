@@ -1,0 +1,184 @@
+<div class="{{extension.css_classes}}">
+<div class="view view--full">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital,wght@0,400;1,400&display=swap');
+
+html, body { height: 100%; min-height: 100%; margin: 0; padding: 0; }
+body > div { height: 100%; min-height: 100%; }
+
+.view--full {
+  display: flex !important;
+  flex-direction: column !important;
+  font-family: 'Amiri', serif;
+  background: #fff;
+  color: #1a1a1a;
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+}
+.view--full *, .view--full *::before, .view--full *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.hd-card {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header bar ── */
+.hd-card-head {
+  display: flex;
+  align-items: stretch;
+  background: #1a1a1a;
+  color: #fff;
+  flex-shrink: 0;
+}
+.hd-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 4px 8px;
+  font-size: 1.3em;
+  font-weight: 700;
+  background: #c8a96e;
+  color: #1a1a1a;
+  flex-shrink: 0;
+}
+.hd-titles {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 14px;
+  gap: 8px;
+}
+.hd-title-en {
+  font-size: 0.78em;
+  opacity: 0.65;
+  direction: ltr;
+  line-height: 1;
+  white-space: nowrap;
+}
+.hd-title-sep {
+  opacity: 0.25;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+.hd-title-ar {
+  font-size: 1.2em;
+  font-weight: 700;
+  direction: rtl;
+  line-height: 1;
+  color: #e8d5a3;
+  white-space: nowrap;
+  font-family: 'Cairo', sans-serif;
+}
+.hd-narrator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  font-size: 0.72em;
+  opacity: 0.55;
+  text-align: center;
+  border-left: 1px solid rgba(255,255,255,0.1);
+  min-width: 100px;
+  flex-shrink: 0;
+  direction: ltr;
+  line-height: 1.3;
+}
+
+/* ── Body: Arabic on top, English below ── */
+.hd-card-body {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hd-col-ar {
+  padding: 6px 8px 0;
+  direction: rtl;
+  color: #1a1a1a;
+  line-height: 1.75;
+  border-bottom: 1px solid #e8e0d0;
+  font-family: 'Cairo', sans-serif;
+}
+
+.hd-col-en {
+  padding: 0 8px;
+  direction: ltr;
+  font-style: italic;
+  color: #555;
+  line-height: 1.65;
+}
+.hd-col-en em {
+  font-style: normal;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+</style>
+
+<div class="hd-card">
+  <div class="hd-card-head">
+    <div class="hd-num">٢</div>
+    <div class="hd-titles">
+      <div class="hd-title-en">The Levels of the Religion</div>
+      <div class="hd-title-sep">·</div>
+      <div class="hd-title-ar">مراتب الدين</div>
+    </div>
+    <div class="hd-narrator">ʿUmar ibn al-Khaṭṭāb</div>
+  </div>
+  <div class="hd-card-body">
+    <div class="hd-col-ar">عن [عُمرَ] رَضِي اللهُ عَنْهُ أيضاً قالَ: (بَينَما نَحْنُ جُلُوسٌ عِنْدَ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ ذاتَ يَوْمٍ إذْ طلَعَ عَلَيْنا رَجُلٌ شَديدُ بَيَاضِ الثِّيابِ، شَديدُ سَوادِ الشَّعْرِ، لا يُرَى عَلَيْهِ أَثَرُ السَّفَرِ، وَلا يَعْرِفُهُ مِنَّا أَحَدٌ، حتَّى جَلَسَ إلى النَّبيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فَأَسْنَدَ رُكْبَتَيْهِ إِلى رُكْبَتَيْهِ، وَوَضَعَ كَفَّيْهِ على فَخِذَيْهِ؛ قالَ: يا محمَّدُ، أَخْبِرْنِي عَنِ الإسْلامِ. فَقالَ رسولُ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: «الإِسْلاَمُ أَنْ تَشْهَدَ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللهِ، وَتُقِيمَ الصَّلاَةَ، وَتُؤْتِيَ الزَّكَاةَ، وَتَصُومَ رَمَضَانَ، وَتَحُجَّ الْبَيْتَ إِنِ اسْتَطَعْتَ إِليْهِ سَبِيلاً». قالَ: صَدَقْتَ. قالَ: فَعَجِبْنا لَهُ، يَسْأَلُهُ وَيُصَدِّقُهُ. قالَ: فَأَخْبِرْنِي عَنِ الإيمانِ. قالَ: «أَنْ تُؤْمِنَ بِاللهِ وَمَلاَئِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ وَاليَوْمِ الآخِرِ، وَتُؤْمِنَ بِالْقَدَرِ خَيْرِهِ وَشَرِّهِِ». قالَ: صَدَقْتَ. قالَ: فَأَخْبِرْني عَنِ الإحسانِ؟ قالَ: «أَنْ تَعْبُدَ اللهَ كَأَنَّكَ تَرَاهُ، فَإِنْ لَمْ تَكُنْ تَرَاهُ فإِنَّهُ يَرَاكَ». قالَ: فَأَخْبِرْني عَنِ السَّاعةِ. قالَ: «مَا الْمَسْؤُولُ عَنْها بِأَعْلَمَ مِنَ السَّائِلِ». قالَ: فَأخْبِرْني عَنْ أَمَاراتِها. قالَ: «أَنْ تَلِدَ الأَمَةُ رَبَّتَهَا، وَأَنْ تَرَى الْحُفَاةَ الْعُرَاةَ الْعَالَةَ رِعَاءَ الشَّاءِ، يَتَطاوَلُونَ فِي الْبُنْيَانِ». قالَ: ثُمَّ انْطَلَقَ، فَلَبِثْتُ مَلِيًّا. ثُمَّ قالَ لي: «يا عُمَرُ، أَتَدْرِي مَنِ السَّائِلُ؟». قُلتُ: اللهُ وَرَسُولُهُ أَعْلَمُ. قالَ: «فَإِنَّهُ جِبْرِيلُ أَتَاكُمْ يُعَلِّمُكُمْ دِينَكُمْ») رواه مسلمٌ.</div>
+    <div class="hd-col-en">Also from ʿUmar (raḍiyallāhu anhu) who said: "Whilst we were sitting with the Messenger of Allāh (ṣallallāhu ʿalayhi wasallam) one day, there came upon us a man whose clothes were intensely white and whose hair was intensely black. No sign of journey was visible on him and none of us knew him. He came and sat down by the Prophet (ṣallallāhu ʿalayhi wasallam), placing his knees by his (the Prophet's) knees and placed his hands on his thighs. He said, 'O Muḥammad, inform me about Islām.' The Messenger of Allāh said, <em>'Islām is to bear witness that none has the right to be worshipped but Allāh and Muḥammad is the Messenger of Allāh, to establish the prayer, to pay the zakāh, to fast in Ramaḍān and to make pilgrimage to the House if you are able to do so.'</em> He said, 'You have spoken truthfully,' and we were amazed at his asking him and confirming he spoke truthfully. He said, 'Then inform me about īmān.' He said, <em>'Īmān is to believe in Allāh, His Angels, His Books, His Messengers, the Last Day, and to believe in the Divine Decree.'</em> He said, 'You have spoken truthfully.' He said, 'Then tell me about iḥsān.' He said, <em>'It is to worship Allāh as if you can see Him, and even though you cannot see Him, He most certainly sees you.'</em> He said, 'Then inform me of the Hour.' He said, <em>'The one being questioned about it is no more knowledgeable of it than the questioner.'</em> He said, 'Then inform me of its signs.' He said, <em>'That the slave-girl will give birth to her own mistress and that you will see the barefooted, naked, destitute herdsmen competing in constructing lofty buildings.'</em> Then the man left and I stayed for a while. Then he (the Messenger) said, 'O ʿUmar, do you know who the questioner was?' I said, 'Allāh and His Messenger know best.' He said, <em>'That was Jibrīl, he came to teach you your religion.'</em>" Related by Muslim.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var arEl = document.querySelector('.hd-col-ar');
+  var enEl = document.querySelector('.hd-col-en');
+
+  function run() {
+    var container = document.querySelector('.hd-card-body');
+    var containerH = container.clientHeight;
+
+    // Step 1: shrink Arabic until it leaves enough room for English
+    var arSize = 26;
+    enEl.style.fontSize = '0px';
+    arEl.style.fontSize = arSize + 'px';
+    while (arEl.scrollHeight > containerH - 40 && arSize > 9) {
+      arSize -= 0.5;
+      arEl.style.fontSize = arSize + 'px';
+    }
+
+    // Step 2: fit English to whatever space remains
+    var remaining = containerH - arEl.offsetHeight;
+    var enSize = 22;
+    enEl.style.fontSize = enSize + 'px';
+    while (enEl.scrollHeight > remaining && enSize > 7) {
+      enSize -= 0.5;
+      enEl.style.fontSize = enSize + 'px';
+    }
+  }
+
+  function afterLayout() {
+    requestAnimationFrame(function () { requestAnimationFrame(run); });
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(afterLayout);
+  } else {
+    window.addEventListener('load', afterLayout);
+  }
+})();
+</script>
+
+</div>
+</div>

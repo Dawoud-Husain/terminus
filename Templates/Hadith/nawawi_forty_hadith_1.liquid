@@ -2,7 +2,7 @@
 <div class="view view--full">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital,wght@0,400;1,400&display=swap');
 
 html, body { height: 100%; min-height: 100%; margin: 0; padding: 0; }
 body > div { height: 100%; min-height: 100%; }
@@ -10,7 +10,7 @@ body > div { height: 100%; min-height: 100%; }
 .view--full {
   display: flex !important;
   flex-direction: column !important;
-  font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+  font-family: 'Amiri', serif;
   background: #fff;
   color: #1a1a1a;
   overflow: hidden !important;
@@ -75,6 +75,7 @@ body > div { height: 100%; min-height: 100%; }
   line-height: 1;
   color: #e8d5a3;
   white-space: nowrap;
+  font-family: 'Cairo', sans-serif;
 }
 .hd-narrator {
   display: flex;
@@ -101,25 +102,20 @@ body > div { height: 100%; min-height: 100%; }
 }
 
 .hd-col-ar {
-  flex: 3 1 0;
-  min-height: 0;
-  padding: 14px 20px 10px;
+  padding: 6px 8px 0;
   direction: rtl;
   color: #1a1a1a;
-  overflow: hidden;
-  line-height: 2;
+  line-height: 1.75;
   border-bottom: 1px solid #e8e0d0;
+  font-family: 'Cairo', sans-serif;
 }
 
 .hd-col-en {
-  flex: 2 1 0;
-  min-height: 0;
-  padding: 10px 20px 14px;
+  padding: 0 8px;
   direction: ltr;
   font-style: italic;
   color: #555;
-  overflow: hidden;
-  line-height: 1.7;
+  line-height: 1.65;
 }
 .hd-col-en em {
   font-style: normal;
@@ -149,18 +145,27 @@ body > div { height: 100%; min-height: 100%; }
   var arEl = document.querySelector('.hd-col-ar');
   var enEl = document.querySelector('.hd-col-en');
 
-  function fit(el, startPx, minPx) {
-    var size = startPx;
-    el.style.fontSize = size + 'px';
-    while (el.scrollHeight > el.clientHeight && size > minPx) {
-      size -= 0.5;
-      el.style.fontSize = size + 'px';
-    }
-  }
-
   function run() {
-    fit(arEl, 26, 9);
-    fit(enEl, 17, 7);
+    var container = document.querySelector('.hd-card-body');
+    var containerH = container.clientHeight;
+
+    // Step 1: shrink Arabic until it leaves enough room for English
+    var arSize = 26;
+    enEl.style.fontSize = '0px';
+    arEl.style.fontSize = arSize + 'px';
+    while (arEl.scrollHeight > containerH - 40 && arSize > 9) {
+      arSize -= 0.5;
+      arEl.style.fontSize = arSize + 'px';
+    }
+
+    // Step 2: fit English to whatever space remains
+    var remaining = containerH - arEl.offsetHeight;
+    var enSize = 22;
+    enEl.style.fontSize = enSize + 'px';
+    while (enEl.scrollHeight > remaining && enSize > 7) {
+      enSize -= 0.5;
+      enEl.style.fontSize = enSize + 'px';
+    }
   }
 
   function afterLayout() {
