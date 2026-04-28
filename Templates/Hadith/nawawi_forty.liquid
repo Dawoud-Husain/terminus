@@ -11,7 +11,7 @@ body > div { height: 100%; min-height: 100%; }
   display: flex !important;
   flex-direction: column !important;
   font-family: 'Amiri', 'Noto Naskh Arabic', serif;
-  background: #faf9f6;
+  background: #fff;
   color: #1a1a1a;
   overflow: hidden !important;
   width: 100%;
@@ -19,24 +19,15 @@ body > div { height: 100%; min-height: 100%; }
 }
 .view--full *, .view--full *::before, .view--full *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Full-bleed list — no outer padding or gap */
-.hd-list {
-  flex: 1 1 0;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Card fills the entire remaining space */
 .hd-card {
   flex: 1 1 0;
   min-height: 0;
-  background: #fff;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
-/* Fixed header — never scrolls away */
+/* ── Header bar ── */
 .hd-card-head {
   display: flex;
   align-items: stretch;
@@ -61,8 +52,21 @@ body > div { height: 100%; min-height: 100%; }
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   padding: 4px 14px;
-  gap: 10px;
+  gap: 8px;
+}
+.hd-title-en {
+  font-size: 0.78em;
+  opacity: 0.65;
+  direction: ltr;
+  line-height: 1;
+  white-space: nowrap;
+}
+.hd-title-sep {
+  opacity: 0.25;
+  font-size: 0.9em;
+  flex-shrink: 0;
 }
 .hd-title-ar {
   font-size: 1.2em;
@@ -70,17 +74,6 @@ body > div { height: 100%; min-height: 100%; }
   direction: rtl;
   line-height: 1;
   color: #e8d5a3;
-  white-space: nowrap;
-}
-.hd-title-sep {
-  opacity: 0.3;
-  font-size: 0.9em;
-}
-.hd-title-en {
-  font-size: 0.78em;
-  opacity: 0.65;
-  direction: ltr;
-  line-height: 1;
   white-space: nowrap;
 }
 .hd-narrator {
@@ -98,61 +91,89 @@ body > div { height: 100%; min-height: 100%; }
   line-height: 1.3;
 }
 
-/* Scrollable body — all text lives here */
+/* ── Body: Arabic on top, English below ── */
 .hd-card-body {
   flex: 1 1 0;
   min-height: 0;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-.hd-card-body::-webkit-scrollbar { width: 5px; }
-.hd-card-body::-webkit-scrollbar-thumb { background: #c8a96e; border-radius: 3px; }
-.hd-card-body::-webkit-scrollbar-track { background: transparent; }
 
-/* Arabic hadith text */
-.hd-text-ar {
+.hd-col-ar {
+  flex: 3 1 0;
+  min-height: 0;
+  padding: 14px 20px 10px;
   direction: rtl;
-  padding: 20px 22px 14px;
-  font-size: 1.4em;
-  line-height: 2.1;
   color: #1a1a1a;
-  border-bottom: 1px solid #ede8dc;
+  overflow: hidden;
+  line-height: 2;
+  border-bottom: 1px solid #e8e0d0;
 }
 
-/* English translation */
-.hd-text-en {
-  padding: 14px 22px 20px;
-  font-size: 0.9em;
-  line-height: 1.85;
-  color: #444;
+.hd-col-en {
+  flex: 2 1 0;
+  min-height: 0;
+  padding: 10px 20px 14px;
   direction: ltr;
   font-style: italic;
+  color: #555;
+  overflow: hidden;
+  line-height: 1.7;
 }
-.hd-text-en em {
+.hd-col-en em {
   font-style: normal;
   font-weight: 700;
   color: #1a1a1a;
 }
 </style>
 
-<div class="hd-list">
-
-  <div class="hd-card">
-    <div class="hd-card-head">
-      <div class="hd-num">١</div>
-      <div class="hd-titles">
-        <div class="hd-title-ar">الأعمال بالنيات</div>
-        <div class="hd-title-sep">·</div>
-        <div class="hd-title-en">Actions Are By Intention</div>
-      </div>
-      <div class="hd-narrator">ʿUmar bin al-Khaṭṭāb</div>
+<div class="hd-card">
+  <div class="hd-card-head">
+    <div class="hd-num">١</div>
+    <div class="hd-titles">
+      <div class="hd-title-en">Actions Are By Intention</div>
+      <div class="hd-title-sep">·</div>
+      <div class="hd-title-ar">الأعمال بالنيات</div>
     </div>
-    <div class="hd-card-body">
-      <div class="hd-text-ar">عن أميرِ المؤمنينَ [أبي حفصٍ عمرَ بنِ الخطَّابِ] رَضِي اللهُ عَنْهُ قالَ: سَمِعْتُ رسولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ يقولُ: «إِنَّمَا الأَعْمَالُ بالنِّيَّاتِ وإِنَّمَا لِكُلِّ امْرِئٍ ما نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلى اللهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَو امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ». رواه إماما المحدِّثينَ: أبو عبدِ اللهِ محمَّدُ بنُ إسماعيلَ بنِ إبراهيمَ بنِ المغيرةِ ابنِ بَرْدِزْبَه البُخاريُّ، وأبو الحُسَيْنِ مسلِمُ بنُ الحجَّاجِ بنِ مُسلمٍ القُشيْريُّ النَّيْسَابوريُّ في صحيحيهما اللَّذين هما أصحُّ الكتُبِ الْمُصَنَّفةِ.</div>
-      <div class="hd-text-en">From the Chief of the Believers, Abī Hafṣ ʿUmar bin al-Khaṭṭāb (raḍiyallāhu anhu) who said: I heard the Messenger of Allāh (ṣallallāhu ʿalayhi wasallam) saying: <em>"Verily actions are based upon the intentions (behind them) and every man shall have (in accordance) with what he intended. Thus, he whose migration was (for the sake of) Allāh and His Messenger, then his migration was indeed for Allāh and His Messenger. And he whose migration was to attain a portion of the world or to take some woman in marriage, then his migration was for that for which he migrated."</em> It was related by the two Imāms of the Muḥaddithīn, Abū ʿAbdillāh Muḥammad bin Ismāʿīl bin ʾIbrāhīm bin al-Mughīrah ibn Bardizbah al-Bukhārī and Abū al-Ḥusayn Muslim bin al-Ḥajjāj bin Muslim al-Qushayrī al-Naysabūrī in their two Ṣaḥīḥ compilations which are the most authentic of compiled books.</div>
-    </div>
+    <div class="hd-narrator">ʿUmar bin al-Khaṭṭāb</div>
   </div>
+  <div class="hd-card-body">
+    <div class="hd-col-ar">عن أميرِ المؤمنينَ [أبي حفصٍ عمرَ بنِ الخطَّابِ] رَضِي اللهُ عَنْهُ قالَ: سَمِعْتُ رسولَ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ يقولُ: «إِنَّمَا الأَعْمَالُ بالنِّيَّاتِ وإِنَّمَا لِكُلِّ امْرِئٍ ما نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلى اللهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَو امْرَأَةٍ يَنْكِحُهَا فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ». رواه إماما المحدِّثينَ: أبو عبدِ اللهِ محمَّدُ بنُ إسماعيلَ بنِ إبراهيمَ بنِ المغيرةِ ابنِ بَرْدِزْبَه البُخاريُّ، وأبو الحُسَيْنِ مسلِمُ بنُ الحجَّاجِ بنِ مُسلمٍ القُشيْريُّ النَّيْسَابوريُّ في صحيحيهما اللَّذين هما أصحُّ الكتُبِ الْمُصَنَّفةِ.</div>
+    <div class="hd-col-en">From the Chief of the Believers, Abī Hafṣ ʿUmar bin al-Khaṭṭāb (raḍiyallāhu anhu) who said: I heard the Messenger of Allāh (ṣallallāhu ʿalayhi wasallam) saying: <em>"Verily actions are based upon the intentions (behind them) and every man shall have (in accordance) with what he intended. Thus, he whose migration was (for the sake of) Allāh and His Messenger, then his migration was indeed for Allāh and His Messenger. And he whose migration was to attain a portion of the world or to take some woman in marriage, then his migration was for that for which he migrated."</em> It was related by the two Imāms of the Muḥaddithīn, Abū ʿAbdillāh Muḥammad bin Ismāʿīl bin ʾIbrāhīm bin al-Mughīrah ibn Bardizbah al-Bukhārī and Abū al-Ḥusayn Muslim bin al-Ḥajjāj bin Muslim al-Qushayrī al-Naysabūrī in their two Ṣaḥīḥ compilations which are the most authentic of compiled books.</div>
+  </div>
+</div>
 
-</div><!-- /.hd-list -->
+<script>
+(function () {
+  var arEl = document.querySelector('.hd-col-ar');
+  var enEl = document.querySelector('.hd-col-en');
+
+  function fit(el, startPx, minPx) {
+    var size = startPx;
+    el.style.fontSize = size + 'px';
+    while (el.scrollHeight > el.clientHeight && size > minPx) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  }
+
+  function run() {
+    fit(arEl, 26, 9);
+    fit(enEl, 17, 7);
+  }
+
+  function afterLayout() {
+    requestAnimationFrame(function () { requestAnimationFrame(run); });
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(afterLayout);
+  } else {
+    window.addEventListener('load', afterLayout);
+  }
+})();
+</script>
 
 </div>
 </div>
